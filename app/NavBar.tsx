@@ -1,11 +1,15 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { BsPersonLinesFill } from "react-icons/bs";
 
 export default function NavBar() {
+  const currentPath = usePathname();
+
   const Links = [
     { label: "Dashboard", href: "/" },
-    { label: "issues", href: "/Issues" },
+    { label: "issues", href: "/issues" },
   ];
 
   return (
@@ -16,9 +20,11 @@ export default function NavBar() {
       <ul className="flex space-x-3">
         {Links.map((link) => (
           <Link
-            key={link.label}
+            key={link.href}
             href={link.href}
-            className="text-zinc-500 hover:text-zinc-800 transition-colors"
+            className={`${
+              link.href === currentPath ? "text-blue-400" : "text-zinc-500"
+            } hover:text-zinc-500 transition-colors`}
           >
             {link.label}
           </Link>
